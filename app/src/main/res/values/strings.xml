@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">StayFit</string>
+
+    <string name="auth">Authenticate with fingerprint</string>
+    <string name="title_activity_index">IndexActivity</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_settings">Impostazioni</string>
+
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <string name="title_fingerprint">Accedi con un tocco</string>
+    <string name="desc_fingerprint">Tocca lo scanner col tuo dito per accedere</string>
+    <string name="note">(L\'autenticazione con impronta digitale rende l\'accesso all\'app più rapido. Il tuo dispositivo deve avere almeno un impronta digitale registrata nelle impostazioni)</string>
+    <string name="title_activity_home">Impronta digitale</string>
+    <string name="activity_home_desc">L\'autenticazione \è avvenuta con successo</string>
+    <string name="activity_home_note">Riapri l\'app per riprovare ad accedere</string>
+    <string name="filter_hint">Scrivi per cercare</string>
+    <string name="select_lang">Seleziona una lingua</string>
+
+    <string name="add_title">Nuovo elemento</string>
+    <string name="edit_title">Modifica elemento</string>
+    <string name="lbl_title">Titolo</string>
+    <string name="lbl_save">Salva</string>
+
+    <string-array name="settings">
+        <item>Lingua</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

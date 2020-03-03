@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "138170036972",
+    "firebase_url": "https://stayfit-270014.firebaseio.com",
+    "project_id": "stayfit-270014",
+    "storage_bucket": "stayfit-270014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138170036972:android:4ecdc4298c6ec358786bc9",
+        "android_client_info": {
+          "package_name": "flavio.com.stayfit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138170036972-e01ajput40rfe6cj1jmkbp8f0r99cod7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "flavio.com.stayfit",
+            "certificate_hash": "0d865df82d1a557cec36544a927341ddd8cae8f8"
+          }
+        },
+        {
+          "client_id": "138170036972-rqqq6osrr9kael43br14gsd1klf3fts5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6_EnrJyBhF590aezPiqtZ1WM1ZmCLnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138170036972-rqqq6osrr9kael43br14gsd1klf3fts5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
