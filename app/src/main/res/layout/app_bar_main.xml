@@ -20,6 +20,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorAppToolBar"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <androidx.appcompat.widget.Toolbar
@@ -33,21 +34,10 @@
                     android:id="@+id/profile_pic"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_margin="10dp"
                     android:layout_gravity="right"
+                    android:layout_margin="10dp"
                     tools:src="@tools:sample/avatars" />
 
-                <EditText
-                    android:id="@+id/txtSearchFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:ems="10"
-                    android:hint="@string/filter_hint"
-                    android:text=""
-                    android:focusable="false"
-                    android:textColorHighlight="@color/colorDivider"
-                    android:textColorLink="@color/colorDivider" />
             </androidx.appcompat.widget.Toolbar>
 
 

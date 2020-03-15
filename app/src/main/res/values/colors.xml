@@ -3,6 +3,6 @@
     <color name="colorPrimary">#FFCA12</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#D81B21</color>
-    <color name="colorAppToolBar">#FFFFFF</color>
+    <color name="colorAppToolBar">#FF9800</color>
     <color name="colorDivider">#FFB400</color>
 </resources>
