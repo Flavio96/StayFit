@@ -1,5 +1,7 @@
 package flavio.com.stayfit;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,9 +14,13 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -33,11 +39,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import flavio.com.stayfit.utils.RequestPermissionHandler;
+
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class MainActivity extends AppCompatActivity implements WeightTrackerFragment.OnFragmentInteractionListener {
 
@@ -70,6 +92,13 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
 
     private GoogleSignInAccount account;
 
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
+    private FirebaseUser user;
+
+    String token;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,8 +128,6 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
 
         toolbar = findViewById(R.id.toolbar);
 
-        signIn();
-
         // initializing navigation menu
         setUpNavigationView();
 
@@ -114,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
             loadHomeFragment();
         }
 
+        signIn();
 
     }
 
@@ -134,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
         return super.dispatchTouchEvent( event );
     }
 
-    private void signIn() {
+    public GoogleSignInAccount signIn() {
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -149,6 +177,8 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
         }else {
             setUpDrawerHead(account);
         }
+
+        return account;
 
     }
 
@@ -395,4 +425,12 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    private boolean isNetworkAvailable(Context ctx) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) ctx.getSystemService(ctx.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }
