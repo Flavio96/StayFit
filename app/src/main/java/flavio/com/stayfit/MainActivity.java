@@ -145,23 +145,6 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
 
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        EditText e = toolbar.findViewById(R.id.txtSearchFilter);
-        if(e.hasFocus()){
-            Rect outRect = new Rect();
-            e.getGlobalVisibleRect(outRect);
-            if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
-                e.clearFocus();
-                FrameLayout f = findViewById(R.id.frame);
-                f.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(e.getWindowToken(), 0);
-            }
-        }
-        return super.dispatchTouchEvent( event );
-    }
-
     public GoogleSignInAccount signIn() {
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -424,13 +407,6 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
     @Override
     public void onFragmentInteraction(Uri uri) {
 
-    }
-
-    private boolean isNetworkAvailable(Context ctx) {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) ctx.getSystemService(ctx.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

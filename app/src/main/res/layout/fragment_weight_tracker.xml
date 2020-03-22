@@ -58,7 +58,7 @@
                     android:paddingBottom="12dp" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButton"
+                    android:id="@+id/fabAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -66,11 +66,18 @@
                     android:layout_margin="@dimen/fab_margin"
                     android:clickable="true"
                     android:src="@android:drawable/ic_input_add" />
-
+                <com.jjoe64.graphview.GraphView
+                    android:layout_width="match_parent"
+                    android:layout_height="444dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="49dp"
+                    android:layout_marginEnd="0dp"
+                    android:id="@+id/graph" />
                 <com.github.mikephil.charting.charts.LineChart
                     android:id="@+id/chart1"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp">
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp">
 
                 </com.github.mikephil.charting.charts.LineChart>
         </RelativeLayout>
