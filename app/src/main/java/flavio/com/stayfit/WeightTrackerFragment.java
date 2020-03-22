@@ -65,10 +65,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.GridLabelRenderer;
 import com.jjoe64.graphview.LegendRenderer;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -84,7 +86,7 @@ import java.util.Map;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
-public class WeightTrackerFragment extends Fragment implements OnChartValueSelectedListener, SeekBar.OnSeekBarChangeListener {
+public class WeightTrackerFragment extends Fragment{
 
     private OnFragmentInteractionListener mListener;
 
@@ -164,16 +166,6 @@ public class WeightTrackerFragment extends Fragment implements OnChartValueSelec
         mListener = null;
     }
 
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-
-    }
-
-    @Override
-    public void onNothingSelected() {
-
-    }
-
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }
@@ -208,7 +200,11 @@ public class WeightTrackerFragment extends Fragment implements OnChartValueSelec
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-
+                            MainActivity a = (MainActivity)getActivity();
+                            a.signOut();
+                            account = a.signIn();
+                            Toast.makeText(view.getContext(), "Problem connecting to datasource", Toast.LENGTH_SHORT).show();
+                            firebaseAuthWithGoogle(account, view);
                             //firestoreOperations(view, acct, user);
                         }
                     }
@@ -309,7 +305,7 @@ public class WeightTrackerFragment extends Fragment implements OnChartValueSelec
     private TextView tvX, tvY;
 
 
-    private void setupGraph(View view, List<QueryDocumentSnapshot> weightsList){
+    /*private void setupGraph(View view, List<QueryDocumentSnapshot> weightsList){
         seekBarX = view.findViewById(R.id.seekBar1);
         seekBarX.setOnSeekBarChangeListener(this);
 
@@ -424,9 +420,9 @@ public class WeightTrackerFragment extends Fragment implements OnChartValueSelec
             chart.setData(data);
         }
     }
+*/
 
-
-    private void setupGraphView(View v, List<QueryDocumentSnapshot> weightsList ) throws ParseException {
+    private void setupGraphView(final View v, List<QueryDocumentSnapshot> weightsList ) throws ParseException {
         GraphView graph = (GraphView)v.findViewById(R.id.graph);
 
         final List<DataPoint> dataPoints = new ArrayList<>();
@@ -468,23 +464,49 @@ public class WeightTrackerFragment extends Fragment implements OnChartValueSelec
         LineGraphSeries<DataPoint> series = new LineGraphSeries<DataPoint>((DataPoint[]) points);
         series.setDrawDataPoints(true);
         series.setDrawBackground(true);
+        series.setAnimated(true);
+        series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                double y = dataPoint.getY();
+                Dialog dialog = new Dialog(v.getContext());dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_datapoint_tap);
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(true);
+            }
+        });
         // styling series
-        series.setTitle("Random Curve 1");
         series.setColor(Color.GREEN);
         series.setDrawDataPoints(true);
         series.setDataPointsRadius(10);
         series.setThickness(8);
 
-        series.setTitle("Random Curve");
+        graph.getViewport().setDrawBorder(true);
 
+        graph.getViewport().setYAxisBoundsManual(true);
+        graph.getViewport().setMinY(30);
+        graph.getViewport().setMaxY(140);
+        graph.getViewport().setXAxisBoundsManual(true);
+        if(points.length>5)
+            graph.getViewport().setMinX(points[(points.length-1)-5].getX());
+        else
+            graph.getViewport().setMinX(points[0].getX());
 
-        graph.getLegendRenderer().setVisible(true);
-        graph.getLegendRenderer().setAlign(LegendRenderer.LegendAlign.TOP);
+        graph.getViewport().setMaxX(points[points.length-1].getX());
 
+        graph.getViewport().setScrollable(true);
+
+        graph.getGridLabelRenderer().setVerticalAxisTitle("Kg");
+        graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLACK);
+        graph.getGridLabelRenderer().setVerticalLabelsVisible(true);
+        graph.getGridLabelRenderer().setGridColor(Color.GRAY);
+        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+        graph.getGridLabelRenderer().setVerticalLabelsColor(Color.BLACK);
+        graph.getGridLabelRenderer().setNumVerticalLabels(22);
         graph.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
             @Override
             public String formatLabel(double value, boolean isValueX){
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                DateFormat df = new SimpleDateFormat("yyyy\nMM\ndd");
                 if(isValueX){
                     return df.format(new Date((long) value));
                 }else {
@@ -497,7 +519,7 @@ public class WeightTrackerFragment extends Fragment implements OnChartValueSelec
     }
 
 
-    @Override
+    /*@Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
         setData(seekBarX.getProgress(), seekBarY.getProgress(), weightsList);
@@ -515,7 +537,7 @@ public class WeightTrackerFragment extends Fragment implements OnChartValueSelec
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
-
+*/
     private boolean isNetworkAvailable(Context ctx) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) ctx.getSystemService(ctx.CONNECTIVITY_SERVICE);

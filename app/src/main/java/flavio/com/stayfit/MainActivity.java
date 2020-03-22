@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
 
     }
 
-    private void signOut() {
+    public void signOut() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(MainActivity.this, "Google SignIn Failed", Toast.LENGTH_LONG).show();
+            //Toast.makeText(MainActivity.this, "Google SignIn Failed", Toast.LENGTH_LONG).show();
             signIn();
 
         } finally {

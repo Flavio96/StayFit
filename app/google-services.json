@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "138170036972-sdumddrlr53cdd5rq26ubdvoqgvv5v8c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "flavio.com.stayfit",
+            "certificate_hash": "7df33f6c658f87ea3539a7c4bc853d52f993c717"
+          }
+        },
+        {
           "client_id": "138170036972-e01ajput40rfe6cj1jmkbp8f0r99cod7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
