@@ -27,6 +27,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -469,17 +470,28 @@ public class WeightTrackerFragment extends Fragment{
             @Override
             public void onTap(Series series, DataPointInterface dataPoint) {
                 double y = dataPoint.getY();
-                Dialog dialog = new Dialog(v.getContext());dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                Dialog dialog = new Dialog(v.getContext());
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_datapoint_tap);
                 dialog.setCancelable(true);
                 dialog.setCanceledOnTouchOutside(true);
+                TextView txtWeight = dialog.findViewById(R.id.txtWeight);
+                txtWeight.setText(y+" Kg");
+                ImageButton delete = dialog.findViewById(R.id.removeInstance);
+                delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                dialog.show();
             }
         });
         // styling series
         series.setColor(Color.GREEN);
         series.setDrawDataPoints(true);
-        series.setDataPointsRadius(10);
-        series.setThickness(8);
+        series.setDataPointsRadius(20);
+        series.setThickness(5);
 
         graph.getViewport().setDrawBorder(true);
 
