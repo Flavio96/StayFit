@@ -141,8 +141,6 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
             loadHomeFragment();
         }
 
-        signIn();
-
     }
 
     public GoogleSignInAccount signIn() {
@@ -297,6 +295,8 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
 
         // refresh toolbar menu
         invalidateOptionsMenu();
+
+        signIn();
     }
 
     private Fragment getHomeFragment() {

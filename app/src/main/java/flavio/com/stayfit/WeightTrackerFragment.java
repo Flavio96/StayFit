@@ -47,6 +47,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.Utils;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -67,6 +68,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.LegendRenderer;
+import com.jjoe64.graphview.Viewport;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
@@ -89,6 +91,7 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class WeightTrackerFragment extends Fragment{
 
+    private static final double ONE_DAY = 86400000;
     private OnFragmentInteractionListener mListener;
 
     private GoogleSignInAccount account;
@@ -423,8 +426,8 @@ public class WeightTrackerFragment extends Fragment{
     }
 */
 
-    private void setupGraphView(final View v, List<QueryDocumentSnapshot> weightsList ) throws ParseException {
-        GraphView graph = (GraphView)v.findViewById(R.id.graph);
+    private void setupGraphView(final View v, final List<QueryDocumentSnapshot> weightsList ) throws ParseException {
+        final GraphView graph = (GraphView)v.findViewById(R.id.graph);
 
         final List<DataPoint> dataPoints = new ArrayList<>();
         int x = 0;
@@ -453,12 +456,12 @@ public class WeightTrackerFragment extends Fragment{
         });
         for (QueryDocumentSnapshot document : weightsList) {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Log.d(WeightTrackerFragment.class.getName(),x + " - " + document.get("datetime").toString());
+            Log.d(WeightTrackerFragment.class.getName(),x + " - " + document.get("datetime").toString()+ " - " + df.parse(document.get("datetime").toString()).getTime());
             DataPoint p = new DataPoint(df.parse(document.get("datetime").toString()),Double.parseDouble(document.get("weight").toString()));
             dataPoints.add(p);
             x++;
         }
-        DataPoint[] points = new DataPoint[dataPoints.size()];
+        final DataPoint[] points = new DataPoint[dataPoints.size()];
         dataPoints.toArray(points);
 
 
@@ -468,20 +471,44 @@ public class WeightTrackerFragment extends Fragment{
         series.setAnimated(true);
         series.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
-            public void onTap(Series series, DataPointInterface dataPoint) {
-                double y = dataPoint.getY();
-                Dialog dialog = new Dialog(v.getContext());
+            public void onTap(final Series series, final DataPointInterface dataPoint) {
+                final double y = dataPoint.getY();
+                final Dialog dialog = new Dialog(v.getContext());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(R.layout.dialog_datapoint_tap);
                 dialog.setCancelable(true);
                 dialog.setCanceledOnTouchOutside(true);
+                TextView txtData = dialog.findViewById(R.id.txtDate);
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                txtData.setText(df.format(dataPoint.getX()));
                 TextView txtWeight = dialog.findViewById(R.id.txtWeight);
                 txtWeight.setText(y+" Kg");
                 ImageButton delete = dialog.findViewById(R.id.removeInstance);
                 delete.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-
+                    public void onClick(final View view) {
+                        final Context ctx = view.getContext();
+                        QueryDocumentSnapshot doc = findDocumentbyDate(ctx, dataPoint.getX(), weightsList);
+                        dialog.dismiss();
+                        doc.getReference().delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                        Toast.makeText(ctx, "Deleted succesfully", Toast.LENGTH_SHORT).show();
+                                        try {
+                                            setupGraphView(v, weightsList);
+                                        } catch (ParseException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error deleting document", e);
+                                    }
+                                });
                     }
                 });
                 dialog.show();
@@ -499,14 +526,36 @@ public class WeightTrackerFragment extends Fragment{
         graph.getViewport().setMinY(30);
         graph.getViewport().setMaxY(140);
         graph.getViewport().setXAxisBoundsManual(true);
-        if(points.length>5)
-            graph.getViewport().setMinX(points[(points.length-1)-5].getX());
-        else
-            graph.getViewport().setMinX(points[0].getX());
+        if(points.length>0) {
+            double diff = 0;
+            if (points.length > 5) {
+                graph.getViewport().setMinX(points[(points.length - 1) - 5].getX());
+            }else {
+                graph.getViewport().setMinX(points[0].getX());
+            }
+            if(points.length>1)
+                diff = (points[points.length - 1].getX() - points[points.length - 2].getX());
 
-        graph.getViewport().setMaxX(points[points.length-1].getX());
+            graph.getViewport().setMaxX(points[points.length - 1].getX() + diff);
 
-        graph.getViewport().setScrollable(true);
+            graph.getViewport().setScrollable(true);
+            graph.getViewport().setOnXAxisBoundsChangedListener(new Viewport.OnXAxisBoundsChangedListener() {
+                @Override
+                public void onXAxisBoundsChanged(double minX, double maxX, Reason reason) {
+                    double diff =0;
+                    if (maxX == points[points.length - 1].getX()) {
+                        if (points.length > 5){
+                            graph.getViewport().setMinX(points[(points.length - 1) - 5].getX());}
+                        else
+                            graph.getViewport().setMinX(points[0].getX());
+                        if(points.length>1)
+                            diff = (points[points.length - 1].getX() - points[points.length - 2].getX());
+                        graph.getViewport().setMaxX(points[points.length - 1].getX() + diff);
+                        graph.getViewport().setScrollable(true);
+                    }
+                }
+            });
+        }
 
         graph.getGridLabelRenderer().setVerticalAxisTitle("Kg");
         graph.getGridLabelRenderer().setVerticalAxisTitleColor(Color.BLACK);
@@ -527,7 +576,23 @@ public class WeightTrackerFragment extends Fragment{
             }
         });
 
+        graph.removeAllSeries();
         graph.addSeries(series);
+    }
+
+    private QueryDocumentSnapshot findDocumentbyDate(Context ctx, double datetime, List<QueryDocumentSnapshot> weightsList){
+        QueryDocumentSnapshot result = weightsList.get(weightsList.size()-1);
+        try {
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            for(QueryDocumentSnapshot w : weightsList){
+                Date y1 = df.parse(w.get("datetime").toString());
+                if(datetime == (double)y1.getTime())
+                    result = w;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 
