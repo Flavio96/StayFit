@@ -18,9 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorPrimaryDark"
         android:fitsSystemWindows="true"
-        app:itemBackground="@color/colorPrimaryDark"
         app:itemTextAppearance="@style/TextAppearance.AppCompat.Body2"
         app:itemTextColor="@color/colorPrimary"
         app:menu="@menu/index_menu" />

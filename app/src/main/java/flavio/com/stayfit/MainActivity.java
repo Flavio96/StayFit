@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
     private static final String TAG = MainActivity.class.getName();
 
     public static final String TAG_HOME = "home";
+    public static final String TAG_WORKOUT = "workout";
     public static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
     public static final int RC_SIGN_IN = 9001;
@@ -140,8 +141,6 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
             }
             loadHomeFragment();
         }
-
-        signIn();
 
     }
 
@@ -305,6 +304,10 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
                 WeightTrackerFragment homeFragment = new WeightTrackerFragment();
                 toolbar.setTitle("");
                 return homeFragment;
+            case 1:
+                WorkoutMainFragment workoutFragment = new WorkoutMainFragment();
+                toolbar.setTitle("");
+                return workoutFragment;
             default:
                 return new WeightTrackerFragment();
         }
@@ -325,8 +328,12 @@ public class MainActivity extends AppCompatActivity implements WeightTrackerFrag
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_HOME;
                         break;
-                    case R.id.nav_settings:
+                    case R.id.nav_workout:
                         navItemIndex = 1;
+                        CURRENT_TAG = TAG_WORKOUT;
+                        break;
+                    case R.id.nav_settings:
+                        navItemIndex = 2;
                         CURRENT_TAG = TAG_SETTINGS;
                         break;
                     default:

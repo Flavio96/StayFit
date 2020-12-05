@@ -502,9 +502,9 @@ public class WeightTrackerFragment extends Fragment{
         if(points.length>5)
             graph.getViewport().setMinX(points[(points.length-1)-5].getX());
         else
-            graph.getViewport().setMinX(points[0].getX());
+            graph.getViewport().setMinX(points.length>0?points[0].getX():1);
 
-        graph.getViewport().setMaxX(points[points.length-1].getX());
+        graph.getViewport().setMaxX(points.length>2?points[points.length-1].getX():2);
 
         graph.getViewport().setScrollable(true);
 

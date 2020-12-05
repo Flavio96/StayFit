@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<exercises>
+    <exercise
+        id="0"
+        name="Pike Push Ups"
+        muscles="shoulders"
+        url="h0HjqYRlXYg"
+        seconds="37"
+        type="r"
+        />
+    <exercise
+        id="1"
+        name="Regular Push Ups"
+        muscles="chest"
+        url="IODxDxX7oi4"
+        seconds="7"
+        type="r"
+        />
+    <exercise
+        id="2"
+        name="Diamond Push Ups"
+        muscles="chest / triceps"
+        url="Tn14HJMn12w"
+        seconds="318"
+        type="r"
+        />
+    <exercise
+        id="3"
+        name="Handstand Push Ups"
+        muscles="shoulders"
+        url="h0HjqYRlXYg"
+        seconds="64"
+        type="r"
+        />
+    <exercise
+        id="4"
+        name="Regular Pull Ups"
+        muscles="back"
+        url="eGo4IYlbE5g"
+        seconds="249"
+        type="r"
+        />
+    <exercise
+        id="5"
+        name="Regular Chin Ups"
+        muscles="back / biceps"
+        url="UfhT0OSUU0w"
+        seconds="355"
+        type="r"
+        />
+    <exercise
+        id="6"
+        name="Dip"
+        muscles="chest"
+        url="2z8JmcrW-As"
+        seconds="154"
+        type="r"
+        />
+    <exercise
+        id="7"
+        name="Tuck Front Lever"
+        muscles="back / core"
+        url="AGhb8V8M758"
+        seconds="128"
+        type="s"
+        />
+    <exercise
+        id="8"
+        name="Adv Tuck Front Lever"
+        muscles="back / core"
+        url="AGhb8V8M758"
+        seconds="185"
+        type="s"
+        />
+    <exercise
+        id="9"
+        name="Straddle Front Lever"
+        muscles="back / core"
+        url="AGhb8V8M758"
+        seconds="255"
+        type="s"
+        />
+    <exercise
+        id="10"
+        name="Front Lever"
+        muscles="back / core"
+        url="jQhXRL6KnjI"
+        seconds="103"
+        type="s"
+        />
+    <exercise
+        id="11"
+        name="Deep squat"
+        muscles="back / core"
+        url="BqF90pMpjb4"
+        seconds="9"
+        type="r"
+        />
+    <exercise
+        id="12"
+        name="Archer Pull Ups"
+        muscles="back / core"
+        url="FnWrvWZDJTo"
+        seconds="188"
+        type="r"
+        />
+    <exercise
+        id="13"
+        name="Toes to Bar"
+        muscles="back / core"
+        url="eSk2oo2qfPA"
+        seconds="584"
+        type="r"
+        />
+    <exercise
+        id="14"
+        name="Archer Push Ups"
+        muscles="back / core"
+        url="6HxtxoXRFG0"
+        seconds="307"
+        type="r"
+        />
+    <exercise
+        id="15"
+        name="Australian Pull Ups"
+        muscles="chest"
+        url="FnWrvWZDJTo"
+        seconds="20"
+        type="r"
+        />
+    <exercise
+        id="16"
+        name="Straigh Bar Dip"
+        muscles="chest"
+        url="2IUoEAzjZqY"
+        seconds="34"
+        type="r"
+        />
+    <exercise
+        id="17"
+        name="Muscle Ups"
+        muscles="chest"
+        url="89v8LYbgg5M"
+        seconds="18"
+        type="r"
+        />
+    <exercise
+        id="18"
+        name="Pseudo Push Ups"
+        muscles="shoulder / chest"
+        url="x-WosgklhR0"
+        seconds="26"
+        type="r"
+        />
+    <exercise
+        id="19"
+        name="Tricep extensions"
+        muscles= "triceps"
+        url="x-WosgklhR0"
+        seconds="58"
+        type="r"
+        />
+    <exercise
+        id="20"
+        name="Mountain climbers"
+        muscles= "abs"
+        url="m2LfqLLjWE4"
+        seconds="288"
+        type="s"
+        />
+    <exercise
+        id="21"
+        name="Knee raises"
+        muscles= "abs"
+        url="G9Q3XdeGTvM"
+        seconds="17"
+        type="r"
+        />
+    <exercise
+        id="22"
+        name="Leg raises"
+        muscles= "abs"
+        url="QyVq5oUBpss"
+        seconds="97"
+        type="r"
+        />
+    <exercise
+        id="23"
+        name="Russian twists"
+        muscles= "core"
+        url="3p8EBPVZ2Iw"
+        seconds="175"
+        type="s"
+        />
+    <exercise
+        id="24"
+        name="Tuck Planche"
+        muscles= "shoulders"
+        url="UZ-1jwG7aQ4"
+        seconds="50"
+        type="s"
+        />
+    <exercise
+        id="25"
+        name="Adv Tuck Planche"
+        muscles= "shoulders"
+        url="SmzPetNKPzA"
+        seconds="55"
+        type="s"
+        />
+    <exercise
+        id="26"
+        name="Straddle Planche"
+        muscles= "shoulders"
+        url="Hq9yrOS3cDY"
+        seconds="110"
+        type="s"
+        />
+    <exercise
+        id="27"
+        name="Full Planche"
+        muscles= "shoulders"
+        url="Hq9yrOS3cDY"
+        seconds="220"
+        type="s"
+        />
+    <exercise
+        id="28"
+        name="Incline Push ups"
+        muscles= "shoulders / chest"
+        url="FU_5LPjtjus"
+        seconds="136"
+        type="r"
+        />
+    <exercise
+        id="29"
+        name="Wide Push ups"
+        muscles= "back / chest"
+        url="FU_5LPjtjus"
+        seconds="127"
+        type="r"
+        />
+    <exercise
+        id="31"
+        name="Elevated Pike Push ups"
+        muscles= "shoulders / chest"
+        url="FU_5LPjtjus"
+        seconds="168"
+        type="r"
+        />
+    <exercise
+        id="32"
+        name="Clapping Push ups"
+        muscles= "chest"
+        url="FU_5LPjtjus"
+        seconds="217"
+        type="r"
+        />
+    <exercise
+        id="33"
+        name="Diamond to Regular Push ups"
+        muscles= "chest / triceps"
+        url="FU_5LPjtjus"
+        seconds="239"
+        type="r"
+        />
+    <exercise
+        id="35"
+        name="Handstand"
+        muscles= "shoulders / core"
+        url="ctunmnwbbSI"
+        seconds="30"
+        />
+    <exercise
+        id="36"
+        name=""
+        muscles= ""
+        url=""
+        seconds=""
+        />
+    <exercise
+        id="37"
+        name=""
+        muscles= ""
+        url=""
+        seconds=""
+        />
+    <exercise
+        id="38"
+        name=""
+        muscles= ""
+        url=""
+        seconds=""
+        />
+    <exercise
+        id="39"
+        name=""
+        muscles= ""
+        url=""
+        seconds=""
+        />
+</exercises>

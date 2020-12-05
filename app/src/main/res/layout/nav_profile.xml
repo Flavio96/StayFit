@@ -27,13 +27,13 @@
                     android:id="@+id/txtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorWhite" />
 
                 <TextView
                     android:id="@+id/txtMail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorWhite" />
         </LinearLayout>
 
 </LinearLayout>
